@@ -1,0 +1,9 @@
+Part 1
+    - Part C
+        - Rendering the component
+        - Sub components
+        - Creating and maintaining state
+        - Event handling (onClick, butttons)
+        - Prop structuring/destructuring
+        - Turning things into components
+        - Creating refresh method to render page (less code bloat)

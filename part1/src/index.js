@@ -1,46 +1,60 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
 
+const Display = (props) => {
+  return (
+    <div>{props.counter}</div>
+  )
+}
 
-const Hello = (props) => {
+const Button = (props) => {
+  return (
+    <button onClick = {props.handleClick}>
+      {props.text}
+    </button>
+  )
+}
+
+const App = (props) => {
+  const [counter, setCounter] = useState(0)
+
+  const handleClick = () => {
+    console.log('clicked')
+  }
+
+  const increaseByOne = () => setCounter(counter + 1)
+  const reset = () => setCounter(0)
+  const decrease = () => setCounter(counter - 1)
+
   return (
     <div>
-      <p>Hello {props.name}, you are {props.age} years old</p>
-    </div>
+      <Display counter={counter}/>
+
+      <Button
+        handleClick = {increaseByOne}
+        text = 'Add 1'
+      />
+
+      <Button 
+        handleClick = {decrease}
+        text = 'Subtract 1'
+      />
+
+      <Button
+        handleClick = {reset}
+        text = "Zero"
+      />
+      </div>
   )
 }
 
-/*
- - Javascript inside the curly braces of a function is evaluated
- - Components are reusable, and return JSX to be rendered
- - (props) is an object passed as a parameter, their values can be strings or results of expressions
- - 
-*/
-const App = () => { //component with the name app
-  const name = 'pete'
-  const age = 10
+let counter = 1
 
-  return ( 
-    <div>
-      <h1> Greetings! </h1>
-      <Hello name="George" age = {26+10}/>
-      <Hello name={name} age={age}/>
-    </div>
+const refresh = () => {
+  ReactDOM.render(
+    <App counter = {counter} />, 
+    document.getElementById("root")
   )
 }
 
-//const App = ...
-// this is a constant variable, which is assigned the value of..
-
-/* this javascript function! 
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
-
-() => (
-  <div>
-    <p>Hello world!</p>
-  </div>
-)
-
-*/
-
-ReactDOM.render(<App />, document.getElementById('root')) 
+refresh()
