@@ -1,55 +1,58 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
-const Display = (props) => {
-  return (
-    <div>{props.counter}</div>
-  )
-}
-
-const Button = (props) => {
-  return (
-    <button onClick = {props.handleClick}>
-      {props.text}
-    </button>
-  )
-}
-
-const App = (props) => {
-  const [counter, setCounter] = useState(0)
-
-  const handleClick = () => {
-    console.log('clicked')
+const History = (props) => {
+  if (props.allClicks.length === 0) {
+    return (
+      <div>
+        the app is used by pressing buttons
+      </div>
+    )
   }
-
-  const increaseByOne = () => setCounter(counter + 1)
-  const reset = () => setCounter(0)
-  const decrease = () => setCounter(counter - 1)
 
   return (
     <div>
-      <Display counter={counter}/>
+      button press history: {props.allClicks.join(' ')}
+    </div>
+  )
+}
 
-      <Button
-        handleClick = {increaseByOne}
-        text = 'Add 1'
-      />
+const Button = ({ onClick, text }) => (
+  <button  onClick={onClick}>
+    {text}
+  </button>
+)
 
-      <Button 
-        handleClick = {decrease}
-        text = 'Subtract 1'
-      />
+const App = (props) => {
+  const [left, setLeft] = useState(0)
+  const [right, setRight] = useState(0)
+  const [allClicks, setAll] = useState([])
 
-      <Button
-        handleClick = {reset}
-        text = "Zero"
-      />
+  const handleLeftClick = () => {
+    setAll(allClicks.concat('L'))
+    setLeft(left + 1)
+  }
+
+  const handleRightClick = () => {
+    setAll(allClicks.concat('R'))
+    setRight(right + 1)
+  }
+
+  return (
+    <div>
+      <div>
+        {left}
+        <Button onClick={handleLeftClick} text='left' />
+        <Button onClick={handleRightClick} text='right' />
+        {right}
+
+        <History allClicks={allClicks} />
       </div>
+    </div>
   )
 }
 
 let counter = 1
-
 const refresh = () => {
   ReactDOM.render(
     <App counter = {counter} />, 
