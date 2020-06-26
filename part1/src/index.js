@@ -1,63 +1,66 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import React, { useState } from 'react'
+import ReactDOM from 'react-dom'
 
-const History = (props) => {
-  if (props.allClicks.length === 0) {
-    return (
-      <div>
-        the app is used by pressing buttons
-      </div>
-    )
-  }
-
-  return (
-    <div>
-      button press history: {props.allClicks.join(' ')}
-    </div>
-  )
-}
-
-const Button = ({ onClick, text }) => (
-  <button  onClick={onClick}>
+const Button = ({onClick, text}) => (
+  <button onClick={onClick}>
     {text}
   </button>
 )
 
-const App = (props) => {
-  const [left, setLeft] = useState(0)
-  const [right, setRight] = useState(0)
-  const [allClicks, setAll] = useState([])
+const Statistic = ({text, amount}) => (
+  <table>
+    <tr>
+      <th>{text}</th>
+      <td>{amount}</td>
+    </tr>
+  </table>
+)
 
-  const handleLeftClick = () => {
-    setAll(allClicks.concat('L'))
-    setLeft(left + 1)
+const App = () => {
+  // save clicks of each button to own state
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+  const total = good + neutral + bad
+
+  const handleGood = () => {
+    setGood(good+1)
   }
 
-  const handleRightClick = () => {
-    setAll(allClicks.concat('R'))
-    setRight(right + 1)
+  const handleNeutral = () => {
+    setNeutral(neutral+1)
+  }
+
+  const handleBad = () => {
+    setBad(bad+1)
   }
 
   return (
     <div>
-      <div>
-        {left}
-        <Button onClick={handleLeftClick} text='left' />
-        <Button onClick={handleRightClick} text='right' />
-        {right}
+      <h1>
+        Give feedback
+      </h1>
 
-        <History allClicks={allClicks} />
-      </div>
+      <Button onClick={handleGood} text='Good'/>
+      <Button onClick={handleNeutral} text='Neutral'/>
+      <Button onClick={handleBad} text='Bad'/>
+
+      <p>
+        <h2>
+          Statistics
+        </h2>
+
+        <Statistic text='Good' amount={good}/>
+        <Statistic text='Neutral' amount={neutral}/>
+        <Statistic text='Bad' amount={bad}/>
+        <Statistic text='Total' amount={total} />
+        <Statistic text='Average' amount={(good - bad)/total} />
+        <Statistic text='Positive %' amount={good/total} />
+      </p>
     </div>
   )
 }
 
-let counter = 1
-const refresh = () => {
-  ReactDOM.render(
-    <App counter = {counter} />, 
-    document.getElementById("root")
-  )
-}
-
-refresh()
+ReactDOM.render(<App />, 
+  document.getElementById('root')
+)
