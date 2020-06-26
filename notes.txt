@@ -7,3 +7,10 @@ Part 1
         - Prop structuring/destructuring
         - Turning things into components
         - Creating refresh method to render page (less code bloat)
+    - Part D
+        - Using and maintaining separate states
+        - StateHooks
+        - Turning everything into a smaller component
+        - Using arrays in JS for state
+        - Conditional rendering
+        - Debugging (use React extension)
