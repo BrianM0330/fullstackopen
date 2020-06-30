@@ -1,3 +1,5 @@
+General
+npx create-react-app .
 Part 1
     - Part C
         - Rendering the component
