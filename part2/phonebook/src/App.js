@@ -1,26 +1,72 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
 
-function App() {
+const App = () => {
+  const [ persons, setPersons ] = useState([
+    { name: 'Adam' } ]) 
+  const [ newName, setNewName ] = useState('')
+
+  const addName = (event) => {
+    event.preventDefault()
+    console.log("Clicked!")
+
+    //if name doesn't exist
+    const nameExists = persons.find(bookEntry => bookEntry.name === newName)
+    if (nameExists === undefined & newName.length > 0) { 
+      const nameEntry = {
+        name: newName,
+        dateAdded: new Date().toISOString(),
+        id: persons.length+1
+      }
+      setPersons(persons.concat(nameEntry))
+      setNewName('')
+      console.log("Entry made:", newName)
+    }
+    
+    else if (newName.length === 0) {
+      setNewName('')
+      window.alert("Invalid entry")
+    }
+
+    else {
+      window.alert(newName + " Already exists!")
+      setNewName('')
+    }
+  }
+
+  const handleFormChange = (event) => {
+    console.log(event.target.value)
+    setNewName(event.target.value)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h2>Phonebook</h2>
+
+      <form onSubmit={addName}>
+        <div>
+          Name:  
+          <input 
+            value={newName}
+            onChange = {handleFormChange}
+          />
+        </div>
+
+        <div>
+          <button type="submit">
+            Add
+          </button>
+        </div>
+      </form>
+
+      <h2>Numbers</h2>
+
+      <ul>
+        {persons.map(person => <li>{person.name}</li>
+        )}
+      </ul>
+
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
