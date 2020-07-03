@@ -16,3 +16,15 @@ Part 1
         - Using arrays in JS for state
         - Conditional rendering
         - Debugging (use React extension)
+Part 2
+    - Part A
+        - Using JS arrays and collections to render in React
+        - Map function
+        - Refactoring
+        - Turning everything into a component
+    - Part B
+        - Adding custom functions on Forms, buttons, etc.
+        - The event parameter in addNote is theh event that triggered it
+        - newNote uses state from the form field and reflects the current input.
+        - Conditional HTML
+        - 
