@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Filter from './components/Filter'
+import Display from './components/Display'
 
 const App = () => {
   const [ persons, setPersons ] = useState([
@@ -93,12 +93,8 @@ const App = () => {
         </div>
       </form>
 
-      <h2>Numbers</h2>
-
-      <ul>
-        {persons.map(person => <li>{person.name} {person.number}</li>
-        )}
-      </ul>
+      <h2>All Entries</h2>
+      <Display persons={persons}/>
 
     </div>
   )
