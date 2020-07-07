@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
+import Filter from './components/Filter'
 
 const App = () => {
   const [ persons, setPersons ] = useState([
-    { name: 'Adam' } ]) 
+    { name: 'Adam', number: '7082220245'} ]) 
   const [ newName, setNewName ] = useState('')
+  const [ newNumber, setNewNumber] = useState('')
+  const [ filteredPersons, setFiltered] = useState()
 
   const addName = (event) => {
     event.preventDefault()
@@ -15,10 +18,12 @@ const App = () => {
       const nameEntry = {
         name: newName,
         dateAdded: new Date().toISOString(),
-        id: persons.length+1
+        id: persons.length+1,
+        number: newNumber
       }
       setPersons(persons.concat(nameEntry))
       setNewName('')
+      setNewNumber('')
       console.log("Entry made:", newName)
     }
     
@@ -33,21 +38,51 @@ const App = () => {
     }
   }
 
-  const handleFormChange = (event) => {
+  const handleNameChange = (event) => {
     console.log(event.target.value)
     setNewName(event.target.value)
+  }
+  
+  const handleNumberChange = (event) => {
+    console.log(event.target.value)
+    setNewNumber(event.target.value)
+  }
+
+  const filterPersons = (event) => {
+    console.log("done")
+    const value = event.target.value.toLowerCase()
+    const filtered = persons.filter(
+      person => person.name.toLowerCase().trim().includes(value)
+    )
+    setFiltered(filtered)
   }
 
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h1>Phonebook</h1>
+      <h2> Search </h2>
+      <div>
+        Filter:
+        <input
+          onSubmit = {filterPersons}
+        />
+      </div>
 
+      <h2> Create Entry </h2>
       <form onSubmit={addName}>
         <div>
           Name:  
           <input 
             value={newName}
-            onChange = {handleFormChange}
+            onChange = {handleNameChange}
+          />
+        </div>
+
+        <div>
+          Number:
+          <input 
+            value={newNumber}
+            onChange = {handleNumberChange}
           />
         </div>
 
@@ -61,7 +96,7 @@ const App = () => {
       <h2>Numbers</h2>
 
       <ul>
-        {persons.map(person => <li>{person.name}</li>
+        {persons.map(person => <li>{person.name} {person.number}</li>
         )}
       </ul>
 
