@@ -4,8 +4,7 @@ import Form from './components/Form'
 import Filter from './components/Filter'
 
 const App = () => {
-  const [ persons, setPersons ] = useState([
-    { name: 'Adam', number: '7082220245'} ]) 
+  const [ persons, setPersons ] = useState([]) 
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber] = useState('')
   const [ filteredPersons, setFiltered] = useState()
@@ -66,16 +65,11 @@ const App = () => {
   return (
     <div>
       <h1>Phonebook</h1>
-      <h2> Search </h2>
-      <Filter onChange={filterPersons}/>
-      {/* <div>
-        Filter:
-        <input
-          onSubmit = {filterPersons}
-        />
-      </div> */}
 
-      <h2> Create Entry </h2>
+      <h3> Search </h3>
+      <Filter onChange={filterPersons}/>
+
+      <h3> Create Entry </h3>
       <Form addName={addName} 
             newName={newName} 
             newNumber={newNumber} 
@@ -83,9 +77,7 @@ const App = () => {
             handleNumber={handleNumber}
       />
 
-      <h2>All Entries</h2>
       <Display persons={persons}/>
-
     </div>
   )
 }
