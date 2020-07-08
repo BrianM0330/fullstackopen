@@ -27,4 +27,6 @@ Part 2
         - The event parameter in addNote is theh event that triggered it
         - newNote uses state from the form field and reflects the current input.
         - Conditional HTML
-        - 
+        - Creating and sending data using objects
+        - Using event handlers and forms
+    
