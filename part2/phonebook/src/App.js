@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Display from './components/Display'
 import Form from './components/Form'
+import Filter from './components/Filter'
 
 const App = () => {
   const [ persons, setPersons ] = useState([
@@ -39,18 +40,22 @@ const App = () => {
     }
   }
 
-  const handleNameChange = (event) => {
+  const handleName = (event) => {
     console.log(event.target.value)
     setNewName(event.target.value)
   }
   
-  const handleNumberChange = (event) => {
+  const handleNumber = (event) => {
     console.log(event.target.value)
     setNewNumber(event.target.value)
   }
 
+  const handleEvent = (event) => {
+    console.log(event.target.value)
+    setFiltered=(event.target.value)
+  }
+
   const filterPersons = (event) => {
-    console.log("done")
     const value = event.target.value.toLowerCase()
     const filtered = persons.filter(
       person => person.name.toLowerCase().trim().includes(value)
@@ -62,19 +67,20 @@ const App = () => {
     <div>
       <h1>Phonebook</h1>
       <h2> Search </h2>
-      <div>
+      <Filter onChange={filterPersons}/>
+      {/* <div>
         Filter:
         <input
           onSubmit = {filterPersons}
         />
-      </div>
+      </div> */}
 
       <h2> Create Entry </h2>
       <Form addName={addName} 
             newName={newName} 
             newNumber={newNumber} 
-            handleName={handleNameChange} 
-            handleNumber={handleNumberChange}
+            handleName={handleName} 
+            handleNumber={handleNumber}
       />
 
       <h2>All Entries</h2>
