@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Display from './components/Display'
+import Form from './components/Form'
 
 const App = () => {
   const [ persons, setPersons ] = useState([
@@ -69,29 +70,12 @@ const App = () => {
       </div>
 
       <h2> Create Entry </h2>
-      <form onSubmit={addName}>
-        <div>
-          Name:  
-          <input 
-            value={newName}
-            onChange = {handleNameChange}
-          />
-        </div>
-
-        <div>
-          Number:
-          <input 
-            value={newNumber}
-            onChange = {handleNumberChange}
-          />
-        </div>
-
-        <div>
-          <button type="submit">
-            Add
-          </button>
-        </div>
-      </form>
+      <Form addName={addName} 
+            newName={newName} 
+            newNumber={newNumber} 
+            handleName={handleNameChange} 
+            handleNumber={handleNumberChange}
+      />
 
       <h2>All Entries</h2>
       <Display persons={persons}/>
