@@ -34,5 +34,6 @@ Part 2
         - Promises: Object representing the eventual completion of an operation
             * Pending: Final value/operation is unavailable 
             * Fulfilled/Rejected
-        - Using react effects
+        - Using react effect hooks
             * Effects run after every completed render, but CAN be run on command
+        - 
