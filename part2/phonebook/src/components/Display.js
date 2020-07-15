@@ -8,9 +8,10 @@ const namesToDisplay = ({persons}) => {
             <div>
                 <h2> All Entries </h2>
                 <ul>
-                    <li>
-                        {persons.map(person => <li>{person.name}: {person.number}</li>)}
-                    </li>
+                    {persons.map(person => 
+                    <li key={person.id}>
+                        {person.name} ({person.id}): {person.number}
+                    </li>)}
                 </ul>
             </div>
         )

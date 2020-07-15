@@ -3,6 +3,8 @@ import Display from './components/Display'
 import Form from './components/Form'
 import Filter from './components/Filter'
 import axios from 'axios'
+import entryService from './services/entry'
+import entry from './services/entry'
 
 const App = () => {
   const [ persons, setPersons ] = useState([]) 
@@ -11,13 +13,12 @@ const App = () => {
   const [ filteredPersons, setFiltered] = useState()
 
   useEffect( () => {
-    axios
-    .get('http://localhost:3001/persons')
-    .then(response => {
-      console.log('Promise completed!')
-      console.log(response.data)
-    })
-  })
+    entryService
+      .getAll()
+      .then(dbInitial => {
+        setPersons(dbInitial.data)
+      })
+  }, [])
 
   const addName = (event) => {
     event.preventDefault()
@@ -25,14 +26,17 @@ const App = () => {
 
     //if name doesn't exist
     const nameExists = persons.find(bookEntry => bookEntry.name === newName)
+    const entryObject = {
+      name: newName,
+      dateAdded: new Date().toISOString(),
+      id: persons.length+1,
+      number: newNumber
+    }
+
     if (nameExists === undefined & newName.length > 0) { 
-      const nameEntry = {
-        name: newName,
-        dateAdded: new Date().toISOString(),
-        id: persons.length+1,
-        number: newNumber
-      }
-      setPersons(persons.concat(nameEntry))
+      entryService
+        .create(entryObject)
+      setPersons(persons.concat(entryObject))
       setNewName('')
       setNewNumber('')
       console.log("Entry made:", newName)
@@ -43,10 +47,16 @@ const App = () => {
       window.alert("Invalid entry")
     }
 
-    else {
-      window.alert(newName + " Already exists!")
-      setNewName('')
-    }
+    else //update entry
+      if (nameExists.number === newNumber) {
+        window.alert(newName + " Already exists!")
+        setNewName('')
+        setNewNumber('')
+      }
+      else {
+        console.log("Updating")
+        entryService.update(nameExists.id, entryObject)
+      }
   }
 
   const handleName = (event) => {
