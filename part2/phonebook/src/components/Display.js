@@ -1,4 +1,5 @@
 import React from 'react'
+import entryService from '../services/entry'
 
 const noEntryStyle = {color: 'red'}
 
@@ -10,7 +11,10 @@ const namesToDisplay = ({persons}) => {
                 <ul>
                     {persons.map(person => 
                     <li key={person.id}>
-                        {person.name} ({person.id}): {person.number}
+                        {person.name} ({person.id}): {person.number}   
+                        <button onClick={() => entryService.toDelete(person.id)}>
+                            Delete
+                        </button>
                     </li>)}
                 </ul>
             </div>
