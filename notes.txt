@@ -3,6 +3,8 @@ npx create-react-app .
 Use backticks (``) not '' for string templates
 State hooks return [CURRENT_STATE, FUNCTION_UPDATES_THE_STATE]
 HTTPS creates CORS error when using JSON-Server, use HTTP
+Use { () => Object } to add objects to onClick
+
 Part 1
     - Part C
         - Rendering the component
@@ -42,4 +44,5 @@ Part 2
     - Part D
         - ... notation. ... gets an object's properties, anything after that is altered
             - const changedNote = { ...note, important: !note.important }
-        -
+        - Handling front end -> backend synchronization using services + axios
+        - Async, promises

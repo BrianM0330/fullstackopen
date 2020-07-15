@@ -2,22 +2,22 @@ import React, { useState, useEffect } from 'react'
 import Display from './components/Display'
 import Form from './components/Form'
 import Filter from './components/Filter'
-import axios from 'axios'
 import entryService from './services/entry'
-import entry from './services/entry'
 
 const App = () => {
-  const [ persons, setPersons ] = useState([]) 
+  const [ people, setPersons ] = useState([]) 
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber] = useState('')
   const [ filteredPersons, setFiltered] = useState()
 
   useEffect( () => {
-    entryService
-      .getAll()
-      .then(dbInitial => {
-        setPersons(dbInitial.data)
-      })
+    const interval = setInterval(() => {
+      entryService
+        .getAll()
+        .then(dbInitial => {setPersons(dbInitial.data)})
+      console.log("Updating every 5s")
+    }, 2000);
+    return () => clearInterval(interval)
   }, [])
 
   const addName = (event) => {
@@ -25,18 +25,23 @@ const App = () => {
     console.log("Clicked!")
 
     //if name doesn't exist
-    const nameExists = persons.find(bookEntry => bookEntry.name === newName)
+    const nameExists = people.find(bookEntry => bookEntry.name === newName)
     const entryObject = {
       name: newName,
       dateAdded: new Date().toISOString(),
-      id: persons.length+1,
+      id: people.length+1,
       number: newNumber
+    }
+
+    //-1 from every id because indeces are off. Uses hashing to prevent duplicate IDs
+    if ( (people.find(person => person.id === entryObject.id)) !== undefined) {
+      entryObject.id = (entryObject.id*10)/2
     }
 
     if (nameExists === undefined & newName.length > 0) { 
       entryService
         .create(entryObject)
-      setPersons(persons.concat(entryObject))
+      setPersons(people.concat(entryObject))
       setNewName('')
       setNewNumber('')
       console.log("Entry made:", newName)
@@ -76,7 +81,7 @@ const App = () => {
 
   const filterPersons = (event) => {
     const value = event.target.value.toLowerCase()
-    const filtered = persons.filter(
+    const filtered = people.filter(
       person => person.name.toLowerCase().trim().includes(value)
     )
     setFiltered(filtered)
@@ -97,7 +102,7 @@ const App = () => {
             handleNumber={handleNumber}
       />
 
-      <Display persons={persons}/>
+      <Display persons={people}/>
     </div>
   )
 }
