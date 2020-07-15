@@ -6,9 +6,11 @@ import axios from 'axios'
 const App = () => {
   const[search, setSearch] = useState('')
   const[countries, setCountries] = useState([])
+  const api_key = process.env.REACT_APP_API_KEY
   
   useEffect(() => {
     console.log("Getting data via effectHook")
+    console.log(api_key)
     axios
       .get('https://restcountries.eu/rest/v2/all')
       .then(response => {
