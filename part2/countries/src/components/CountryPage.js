@@ -18,6 +18,9 @@ const CountryPage = ({countries}) => {
                     {language.name}
                 </li>)}
             </ul>
+            
+            <h3>Weather in {countries[0].name}</h3>
+
 
             <img 
             src={countries[0].flag}

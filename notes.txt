@@ -1,5 +1,8 @@
-General
+General Javascript
 npx create-react-app .
+Use backticks (``) not '' for string templates
+State hooks return [CURRENT_STATE, FUNCTION_UPDATES_THE_STATE]
+HTTPS creates CORS error when using JSON-Server, use HTTP
 Part 1
     - Part C
         - Rendering the component
@@ -36,4 +39,7 @@ Part 2
             * Fulfilled/Rejected
         - Using react effect hooks
             * Effects run after every completed render, but CAN be run on command
-        - 
+    - Part D
+        - ... notation. ... gets an object's properties, anything after that is altered
+            - const changedNote = { ...note, important: !note.important }
+        -
