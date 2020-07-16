@@ -15,7 +15,7 @@ const App = () => {
       entryService
         .getAll()
         .then(dbInitial => {setPersons(dbInitial.data)})
-      console.log("Updating every 5s")
+      console.log("Updating every 2s")
     }, 2000);
     return () => clearInterval(interval)
   }, [])
