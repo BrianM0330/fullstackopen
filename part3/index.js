@@ -1,4 +1,7 @@
-const http = require('http')
+const express = require('express')
+const app = express() 
+
+app.use(express.json())
 
 let notes = [  
   {
@@ -20,11 +23,64 @@ let notes = [
   }
 ]
 
-const app = http.createServer((request, response) => {  
-  response.writeHead(200, {'Content-Type': 'application/json' })  
-  response.end(JSON.stringify(notes))
+
+const generateID = () => {
+  const maxId = notes.length > 0
+    ? Math.max(...notes.map(n => n.id))
+    : 0
+  return maxId + 1
+}
+
+app.post('/api/notes', (request, response) => {
+  const body = request.body
+
+  if (!body.content) { //if missing content
+    return response.status(400).json({
+      error: "Content missing!"
+    })
+  }
+
+  const note = { //almost identical to NoteObject from last section
+    content: body.content,
+    important: body.important || false,
+    date: new Date(),
+    id: generateID(),
+  }
+
+  notes = notes.concat(note)
+
+  response.json(note)
+
+})
+
+app.get('/', (req,res) => {
+  res.send('<h1>Hello world!</h1>')
+})
+
+app.get('/api/notes', (req,res) => {
+  res.json(notes)
+})
+
+app.get('/api/notes/:id', (request, response) => {
+  const id = Number(request.params.id) //pretty much Python's eval. Turned string from JSON into Number
+  console.log(`Fetching Note ${id}`)
+  const note = notes.find(note => note.id === id)
+  
+  //Return 404 if prompted for a nonexisting entry
+  if (note)
+    response.json(note)
+  else
+    response.status(404).end()
+})
+
+app.delete('/api/notes/:id', (request, response) => {
+  const id = Number(request.params.id)
+  notes = notes.filter(note => note.id !== id)
+
+  response.status(204).end()
 })
 
 const port = 3001
-app.listen(port)
-console.log("Server running on port 3001")
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`)
+})
