@@ -1,11 +1,18 @@
 const express = require('express')
 const app = express()
+const cors = require('cors')
 
+app.use(cors())
 app.use(express.json())
 
+const unknownEndpoint = (request, response) => {
+    response.status(400).send({
+        error: "Unknown endpoint"
+    })
+}
 
-let phoneBook = [  
-  ]
+let phoneBook = []
+app.use(unknownEndpoint)
 
 app.get('/', (request, response) => {
     response.send('<h1> DO YOUR HOMEWORK </h1>')
