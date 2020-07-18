@@ -54,3 +54,7 @@ Part 3
         - JSON is returned as a STRING this way, not an object like in parts 1 and 2
             - Because of this, have to convert responses into proper types
         - Content-type headers are very important, backend wont bother if it isnt correct
+        - Routing, middleware, data validation, JSON
+    Part B
+        - CORS allows applications to use data from multiple ports
+            - CORS is a universal standard, use middleware for this project
