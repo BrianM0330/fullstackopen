@@ -4,6 +4,8 @@ const cors = require('cors')
 
 app.use(cors())
 app.use(express.json())
+app.use(express.static('build'))
+app.use(unknownEndpoint)
 
 const unknownEndpoint = (request, response) => {
     response.status(400).send({
@@ -12,7 +14,7 @@ const unknownEndpoint = (request, response) => {
 }
 
 let phoneBook = []
-app.use(unknownEndpoint)
+
 
 app.get('/', (request, response) => {
     response.send('<h1> DO YOUR HOMEWORK </h1>')
