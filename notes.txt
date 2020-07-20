@@ -63,4 +63,5 @@ Part 3
                 2. Copy the above directory into the BACKEND directory
                 3. Tell expressJS (Backend) to use the BUILD folder with the line - app.use(express.static('build'))
                 4. Can use scripts to automate a lot of this work, see FullStackOpen Part3/PartB/Streamlining
+                    4a. Or look at part3/notes/package.json scripts for more concrete example
             
