@@ -64,4 +64,9 @@ Part 3
                 3. Tell expressJS (Backend) to use the BUILD folder with the line - app.use(express.static('build'))
                 4. Can use scripts to automate a lot of this work, see FullStackOpen Part3/PartB/Streamlining
                     4a. Or look at part3/notes/package.json scripts for more concrete example
+    Part C
+        - MongoDB
+            - Create a cluster for the project and connect using Application.
+                - Need to run "Npm install mongoose" to handle the connections. See fso/part3/notes/mongo.js for example
+            - Mongo technically doesn't need a schema for entries, but it's wise to do so
             
