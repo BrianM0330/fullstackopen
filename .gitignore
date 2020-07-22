@@ -1,2 +1,7 @@
 part3/notes/.env
 node_modules
+part3/phone_backend/.env
+part3/phone_backend/index.js
+part3/phone_backend/package-lock.json
+part3/phone_backend/package.json
+part3/phone_backend/models/phonebook.js
