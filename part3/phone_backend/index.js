@@ -1,6 +1,8 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const cors = require('cors')
+const Entry = require('./models/phonebook')
 
 app.use(cors())
 app.use(express.json())
@@ -15,17 +17,15 @@ app.get('/', (request, response) => {
 })
 
 app.get('/api/persons', (request, response) => {
-    response.json(phoneBook)
+    Entry.find({}).then(people => {
+        response.json(people)
+    })
 })
 
 app.get('/api/persons/:id', (request, response) => {
-    const id = Number(request.params.id) //Turn the URL {:id}
-    const thePerson = phoneBook.find(person => person.id === id)
-
-    if (thePerson)
-        response.send(thePerson)
-    else
-        response.status(404).end()
+    Entry.findById(request.params.id).then(singleEntry => {
+        response.json(singleEntry)
+    })
 })
 
 app.get('/info', (request, response) => {
@@ -62,15 +62,16 @@ app.post('/api/persons', (request, response) => {
     }
 
     else {
-        const newEntry = {
+        const entry = new Entry ({
             name: body.name,
             number: body.number,
             date: new Date(),
             id: randomID(),
-        }
-    
-        phoneBook = phoneBook.concat(newEntry)
-        response.json(newEntry)
+        })
+
+        entry.save().then(savedEntry => {
+            response.json(savedEntry)
+        })
     }
 })
 
