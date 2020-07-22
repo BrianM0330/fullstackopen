@@ -17,7 +17,9 @@ app.get('/', (request, response) => {
 
 app.get('/api/persons', (request, response) => {
     Entry.find({}).then(people => {
+        phoneBook = phoneBook.concat(people)
         response.json(people)
+        console.log(phoneBook.length)
     })
 })
 
@@ -48,7 +50,7 @@ const randomID = () => {
 app.post('/api/persons', (request, response) => {
     const body = request.body
 
-    if (!body.number || !body.name) {
+    if (!body.phoneNumber || !body.name) {
         return response.status(400).json({
             error: "Missing phone number or name field"
         })
@@ -63,7 +65,7 @@ app.post('/api/persons', (request, response) => {
     else {
         const entry = new Entry ({
             name: body.name,
-            number: body.number,
+            phoneNumber: body.phoneNumber,
             date: new Date(),
             id: randomID(),
         })
