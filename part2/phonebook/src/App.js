@@ -28,9 +28,9 @@ const App = () => {
     const nameExists = people.find(bookEntry => bookEntry.name === newName)
     const entryObject = {
       name: newName,
+      phoneNumber: newNumber,
       dateAdded: new Date().toISOString(),
       id: people.length+1,
-      number: newNumber
     }
 
     //-1 from every id because indeces are off. Uses hashing to prevent duplicate IDs

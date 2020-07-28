@@ -24,6 +24,8 @@ app.get('/api/persons', (request, response) => {
 })
 
 app.get('/api/persons/:id', (request, response) => {
+    const id = Number(request.params.id)
+
     Entry.findById(request.params.id).then(singleEntry => {
         response.json(singleEntry)
     })
