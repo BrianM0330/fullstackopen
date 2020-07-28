@@ -69,4 +69,13 @@ Part 3
             - Create a cluster for the project and connect using Application.
                 - Need to run "Npm install mongoose" to handle the connections. See fso/part3/notes/mongo.js for example
             - Mongo technically doesn't need a schema for entries, but it's wise to do so
-            
+Part 4
+    -Part A
+        - Structure express components into separate folders. Controllers is the backend routes, models is DB schema, utils is stuff like logging, connectivity configs, etc.
+        - Just look at app and index and piece things together
+        - TESTING
+            - God to have a file that holds testing functions (utils/for_testing.js)
+            - Use jest for now bc it's made by FB and works with React pretty well
+            - Jest expects testing FILES to have .test in the name (palin.test.js)
+            - Start with "test" functions in a testing file. Configure properly (see FSO/part4/parta/testing Node apps)
+            - 
