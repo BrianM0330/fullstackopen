@@ -1,3 +1,5 @@
+MongoDB, Express, React, Redux,
+
 General Javascript
 npx create-react-app .
 Use backticks (``) not '' for string templates
@@ -78,4 +80,25 @@ Part 4
             - Use jest for now bc it's made by FB and works with React pretty well
             - Jest expects testing FILES to have .test in the name (palin.test.js)
             - Start with "test" functions in a testing file. Configure properly (see FSO/part4/parta/testing Node apps)
+            - To run single tests use flags. "npm test -- []" [] can be the string name ('like this') or the relative path to .test.js file
             - 
+        - Async/Await
+            - Magic, pretty intuitive
+            - Much easier than using the complex .then syntax
+            - Await ONLY works in async functions. Async functions are defined in the fn header. MUST  end with [FunctionName]()
+                const main = async () => { ... } main ()
+            - 
+Part 6
+    - Part A
+        - Spread Syntax is the array that is referenced but it is represented as 3 dots. It DESTRUCTURES the array into its elements so it can be mutated, it's not the actual array being called.
+            - numbers [1, 2, 3] ------ ...numbers is [1,2,3]. 
+        - Using the Dispatch function from 'react-redux'
+            - The STORE that dispatch() uses is defined in index.js
+            - Using the store in Index with the Provider function, dispatch knows to use that store
+            - useSelector-hook accesses the react store. 
+        - How to actually use stores?
+            - Use dispatch/store creation above ^
+            - In the reducer must define the cases for DISPATCH.
+                - When dispatch is called, something needs to happen that puts the data into the store. Use reducer switch cases.
+                - Ex. Dispatch({type: TEST, content}) --> in the reducer, have a switch case that takes type: 'TEST' and {doesStuff}
+            - Look at examples for examples on concatting, changing properties, etc.
