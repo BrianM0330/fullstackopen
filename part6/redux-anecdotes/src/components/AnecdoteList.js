@@ -1,15 +1,21 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import AnecdoteForm from './AnecdoteForm'
 import {addVote} from '../reducers/anecdoteReducer'
+import {setNotification} from '../reducers/notificationReducer'
+
 
 const AnecdoteList = () => {
-    const anecdotes = useSelector(state => state)
+    const filter = useSelector(state => state.filter)
+    const anecdotes = useSelector(state => state.anecdotes)
+      .sort((a, b) => b.votes - a.votes)
+      .filter(anecdote => anecdote.content.toLowerCase().includes(filter.toLowerCase()))
+    console.log(anecdotes)
     const dispatch = useDispatch()
 
-    const vote = (id) => {
-        console.log('+ vote for', id)
-        dispatch(addVote(id))
+    const vote = (content) => {
+        console.log('+ vote for', content.id)
+        dispatch(addVote(content.id))
+        dispatch(setNotification(content))
     }
 
     return (
@@ -21,19 +27,10 @@ const AnecdoteList = () => {
               </div>
               <div>
                 has {anecdote.votes}
-                <button onClick={() => vote(anecdote.id)}>vote</button>
+                <button onClick={() => vote(anecdote)}>vote</button>
               </div>
             </div>
           )}
-          <h2>create new</h2>
-          <form onSubmit={AnecdoteForm.addAnecdote}>
-            <div>
-              <input name="anecdote"/>
-            </div>
-            <button type="submit">
-              create
-            </button>
-          </form>
         </div>
       )
     }
