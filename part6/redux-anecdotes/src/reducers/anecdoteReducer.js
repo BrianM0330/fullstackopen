@@ -39,10 +39,10 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'VOTE':
       let target = state.find(p => p.id === action.data.id)
+      console.log("STATE!", state)
       target = {...target, votes: target.votes +1}
       return state
         .map(p => (p.id !== action.data.id ? p: target))
-        .sort((a, b) => b.votes - a.votes)
     case 'ADD_ANECDOTE':
       return state.concat(asObject(action.content))
     default:
