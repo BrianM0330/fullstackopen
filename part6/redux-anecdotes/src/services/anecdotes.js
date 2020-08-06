@@ -3,6 +3,7 @@ import axios from 'axios'
 const baseUrl = 'http://localhost:3001/anecdotes'
 
 const getAll = async () => {
+    console.log("GETTING ALL")
     const response = await axios.get(baseUrl)
     return response.data
 }

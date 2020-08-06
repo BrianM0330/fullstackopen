@@ -1,8 +1,8 @@
-import anecdoteReducer, { initializeAnecdotes } from './reducers/anecdoteReducer'
+import anecdoteReducer from './reducers/anecdoteReducer'
 import notificationReducer from './reducers/notificationReducer'
 import filterReducer from './reducers/filterReducer'
-import { createStore, combineReducers} from 'redux'
-import anecService from './services/anecdotes'
+import { createStore, combineReducers, applyMiddleware} from 'redux'
+import thunk from 'redux-thunk'
 
 const reducer = combineReducers({
   anecdotes: anecdoteReducer,
@@ -10,10 +10,6 @@ const reducer = combineReducers({
   filter: filterReducer
 })
 
-const store = createStore(reducer)
-
-anecService.getAll().then(anecdotes =>
-  store.dispatch(initializeAnecdotes(anecdotes))
-)
+const store = createStore(reducer, applyMiddleware(thunk))
 
 export default store
