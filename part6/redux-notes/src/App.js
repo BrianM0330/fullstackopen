@@ -8,8 +8,19 @@ import {useDispatch} from 'react-redux'
 
 const App = () => {
   const dispatch = useDispatch()
+
+  export const initializeNotes = () => {
+    return async dispatch => {
+      const notes = await noteService.getAll()
+      dispatch({
+        type: 'INIT_NOTES',
+        data: notes,
+      })
+    }
+  }
+
   useEffect(() => {
-    noteService.getAll().then(notes => dispatch(initializeNotes(notes)))
+    dispatch(initializeNotes())  
   }, [dispatch])
 
   return (
