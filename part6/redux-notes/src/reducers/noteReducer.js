@@ -1,3 +1,5 @@
+import noteService from '../services/notes'
+
 const noteReducer = (state = [], action) => {
   switch(action.type) {
     case 'NEW_NOTE':
@@ -30,9 +32,12 @@ export const initializeNotes = (notes) => {
 }
 
 export const createNote = (content) => {
-  return {
-    type: 'NEW_NOTE',
-    content
+  return async dispatch => {
+    const newNote = await noteService.createNew(content)
+    dispatch({
+      type: 'NEW_NOTE',
+      data: newNote
+    })
   }
 }
 
