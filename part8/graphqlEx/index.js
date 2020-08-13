@@ -82,16 +82,38 @@ let books = [
 const typeDefs = gql`
   type Book {
     title: String!
-    published: String
+    published: Int
     author: String!
     id: ID
     genres: [String!]!
   }
 
+  type Author {
+    name: String!
+    bookCount: Int!
+    born: Int
+  }
+
   type Query {
     bookCount: Int!
     authorCount: Int!
-    allBooks: [Book!]!
+    allBooks(author: String
+             genre: String):  [Book!]!
+    allAuthors: [Author!]!
+  }
+
+  type Mutation {
+    addBook(
+      title: String!
+      published: Int
+      author: String!
+      genres: [String!]!
+    ): Book
+    
+    editAuthor(
+      name: String!
+      born: Int!
+    ): Author
   }
 `
 
@@ -99,7 +121,36 @@ const resolvers = {
   Query: {
     bookCount: () => books.length,
     authorCount: () => authors.length,
-    allBooks: () => books
+    allBooks: (root, args) => books.filter(
+      i => (args.author ? i.author === args.author : true) && (args.genre ? i.genres.includes(args.genre) : true)
+            //if author arg exists -> filter with author.       if genre arg exists -> filter with genre
+    ),
+    allAuthors: () => authors
+  },
+
+  Mutation: {
+    addBook: (root, args) => {
+      if (!authors.find(i => i.name === args.author)) {  //author doesn't exist?
+        const author = {name: args.author, id: authors.length+1}
+        authors = authors.concat(author)
+      }
+      const newBook = {...args, id: books.length+2}
+      books = books.concat(newBook)
+      return  newBook
+    },
+
+    editAuthor: (root, args) => {
+      const authorToEdit = authors.find(i => i.name === args.name)
+      if (!authorToEdit)
+        return null
+      const updatedAuthor = {...authorToEdit, born: args.born}
+      authors = authors.map(i => i.name === args.name ? updatedAuthor : i)
+      return updatedAuthor
+    }
+  },
+
+  Author: {
+    bookCount: (root) => books.filter(i => i.author === root.name).length
   }
 }
 
