@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import {useField} from './hooks'
+import {Table, Form, Button} from 'react-bootstrap'
 
 import {
   BrowserRouter as Router,
@@ -31,12 +32,16 @@ const Menu = () => {
 const AnecdoteList = ({ anecdotes }) => (
   <div>
     <h2>Anecdotes</h2>
-    <ul>
-      {anecdotes.map(anecdote => 
-      <li key={anecdote.id}>
-        <Link to={`/anecdotes/${anecdote.id}`}>{anecdote.content}</Link>
-      </li>)}
-    </ul>
+    <Table striped>
+      <tbody>
+        <ul>
+          {anecdotes.map(anecdote => 
+          <tr key={anecdote.id}>
+            <Link to={`/anecdotes/${anecdote.id}`}>{anecdote.content}</Link>
+          </tr>)}
+        </ul>
+      </tbody>
+    </Table>
   </div>
 )
 
@@ -87,24 +92,35 @@ const CreateNew = (props) => {
   }
 
   return (
-    <div>
-      <h2>create a new anecdote</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          Content
-          <input {...content} />
-        </div>
-        <div>
-          author
-          <input {...author} />
-        </div>
-        <div>
-          url for more info
-          <input {...info} />
-        </div>
-        <button>Create</button>
-        <button onClick={handleReset}>Reset</button>
-      </form>
+    <div className="container">
+      <h2>Create a New Anecdote</h2>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group>
+          {/* <Form.label>Content:</Form.label> */}
+          <Form.Control 
+            type="text"
+            name="content"
+          />
+          <div>
+            Content
+            <input {...content} />
+          </div>
+          <div>
+            author
+            <input {...author} />
+          </div>
+          <div>
+            url for more info
+            <input {...info} />
+          </div>
+          <Button variant="primary" type="submit">
+            Create
+          </Button>
+          <Button variant="secondary" onClick={handleReset}>
+            Reset
+          </Button>
+        </Form.Group>
+      </Form>
     </div>
   )
 
@@ -162,7 +178,7 @@ const App = () => {
   }
 
   return (
-    <div>
+    <div className="container">
       <Router>
         <h1>Software anecdotes</h1>
         <Menu />

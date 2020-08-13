@@ -1,4 +1,4 @@
-MongoDB, Express, React, Redux,
+MongoDB, Express, React, Redux, GraphQL
 
 General Javascript
 npx create-react-app .
@@ -102,3 +102,30 @@ Part 6
                 - When dispatch is called, something needs to happen that puts the data into the store. Use reducer switch cases.
                 - Ex. Dispatch({type: TEST, content}) --> in the reducer, have a switch case that takes type: 'TEST' and {doesStuff}
             - Look at examples for examples on concatting, changing properties, etc.
+        - Turning everything into components
+            - Basically - App.JS just imports everything
+            - Components -> Dispatch -> Reducer -> State
+            - Layout is --> AnecdotesList and AnecdoteForm. Both of these use Reducer to dispatch stuff into redux state
+    - Part B
+        - Can combine reducers
+        - Radio buttons and filtering
+        - Redux DevTools extension
+            - Needs to be installed using NPM in addition to the browser extension
+    - Part C
+        - Use axios and json-db to do the simple stuff
+        - Look at how 'INIT_NOTES' and services/notes work together, it's clean and efficient
+Part  7
+    - Part A
+    - Part B - Custom Hooks
+        - Kind of like a traditional Java object. Uses hook internally
+        - Access methods and hook state with hookName.function
+        - https://usehooks.com/ // https://github.com/rehooks/awesome-react-hooks
+Part 8 
+    - https://graphql.org/learn/schema/
+    - Every GraphQL Server using Apollo needs a Resolver.
+        - A function that populates data for a single field in the schema.
+        - The Resolver does the backend logic stuff, and must match the query (see index.js)
+            - Resolvers have 4 parameters.
+                * ROOT - the object passed into it
+                * ARGS - specific query
+            - Custom resolvers are pretty good! Default resolver matches the object fields and properties, but they can be 'redefined' in a custom resolver like in Author on L111
