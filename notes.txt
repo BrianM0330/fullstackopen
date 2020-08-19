@@ -129,3 +129,15 @@ Part 8
                 * ROOT - the object passed into it
                 * ARGS - specific query
             - Custom resolvers are pretty good! Default resolver matches the object fields and properties, but they can be 'redefined' in a custom resolver like in Author on L111
+    - ApolloClient uses hooks for queries
+        - useQuery hook is best used for doing a query when the component is rendered
+        - useLazyQUery is best for when a query is done **as needed**
+        - useMutation is used for.. mutations.
+            - refetchQueries does a query whenever a user is added or a mutation is performed. Better than polling!
+    - Using Cache Effectively
+        - If the cache is being used by ApolloClient, the component won't refresh on its own.
+            - Use pollInterval inside the useQuery hook and it will poll every X ms.
+    - ApolloClient
+        - result.data isn't instant. It has to load for a few hundred ms. Otherwise it just returns undefined
+            - To fix this, handle (result.loading) in code. When  done, then result.data is accessible
+            
